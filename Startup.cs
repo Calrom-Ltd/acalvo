@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using User_API.UserData;
 
 namespace User_API
 {
@@ -28,6 +29,10 @@ namespace User_API
         {
 
             services.AddControllers();
+
+            //Adding the new controller with the Interface and FUserData Class
+            services.AddSingleton<IUserData, FUserData>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "User_API", Version = "v1" });
