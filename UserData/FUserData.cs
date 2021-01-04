@@ -33,9 +33,9 @@ namespace User_API.UserData
             throw new NotImplementedException();
         }
 
-        public UserClass GetInfoUser(string password)
+        public UserClass GetInfoUser(string UPassword)
         {
-            throw new NotImplementedException();
+            return ListOfUsers.SingleOrDefault(x => x.Password == UPassword);
         }
 
         public List<UserClass> GetListUsers()

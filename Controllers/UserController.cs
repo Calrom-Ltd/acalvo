@@ -22,16 +22,43 @@ namespace User_API.Controllers
 
         }
 
-        //----------------------------------EndPoint Return User from the List -----------------------------------------------------//
+        //----------------------------------    EndPoint Return Users from the List -----------------------------------------------------//
         [HttpGet]
-        [Route ("api/[controller]")]    
+        [Route("api/[controller]")]
 
-        public IActionResult GetInfoUser ()
+        public IActionResult GetInfoUser()
         {
-
+            //Calling the method (FUserData/GetListUsers)
             return Ok(_userData.GetListUsers());
 
         }
+
+
+        //----------------------------------    EndPoint Return Users Based on Password from the List ---------------------------------------//
+
+        [HttpGet]
+        [Route("api/[controller]/{UserName}/{Password}")]
+
+        public IActionResult GetInfoUser ( String UserName, String Password)
+        {
+            //storing the Password into GetUser
+            var GetUserP = _userData.GetInfoUser(Password);
+            //storing the UserName into GetUser
+            var GetUserN = _userData.GetInfoUser(UserName);
+           
+            //If the fields are not null /Display the message
+            if (GetUserP != null || GetUserN !=null)
+            {
+                return Ok (GetUserP.Message);
+            }
+            else
+            {
+                //Display the message when the password is wrong entered. 
+                return NotFound($"User Password: {Password} incorrect ");
+            }
+        }
+
+
 
     }
 }
