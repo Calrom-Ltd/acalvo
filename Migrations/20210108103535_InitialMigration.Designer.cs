@@ -9,7 +9,7 @@ using User_API.UserClasses;
 namespace User_API.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210104204857_InitialMigration")]
+    [Migration("20210108103535_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -24,12 +24,22 @@ namespace User_API.UserData
             throw new NotImplementedException();
         }
 
-        public UserClass GetInfoUser(string password)
+        //Obtain and Pass the Password
+
+        public UserClass GetInfoUserPassw(string UPassword)
         {
-            var userPassw = _userContext.Users.Find(password);
+            var userPassw = _userContext.Users.Find(UPassword);
             return userPassw;
         }
+        //Obtain and Pass the UserName
 
+        public UserClass GetInfoUserName(string UName)
+        {
+            var UserN = _userContext.Users.Find(UName);
+            return UserN;
+        }
+
+        //Display the List
         public List<UserClass> GetListUsers()
         {
             //return the users from the table SqlServer

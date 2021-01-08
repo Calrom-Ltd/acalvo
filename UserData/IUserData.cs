@@ -11,7 +11,9 @@ namespace User_API.UserData
         
         List<UserClass> GetListUsers();
 
-        UserClass GetInfoUser(String password);
+        UserClass GetInfoUserPassw(String password);
+
+        UserClass GetInfoUserName(String name);
 
         UserClass AddUser(UserClass user);
 

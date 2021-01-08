@@ -33,11 +33,21 @@ namespace User_API.UserData
             throw new NotImplementedException();
         }
 
-        public UserClass GetInfoUser(string UPassword)
+        //Obtain and Pass the Password
+        public UserClass GetInfoUserPassw(string UPassword)
         {
-            return ListOfUsers.SingleOrDefault(x => x.Password == UPassword);
+            
+            return ListOfUsers.SingleOrDefault(x => x.Password == UPassword); ;
         }
 
+        //Obtain and Pass the Username
+        public UserClass GetInfoUserName(string UName)
+        {
+            
+            return ListOfUsers.SingleOrDefault(y => y.UserName == UName);
+        }
+
+        //Display the  List AboveS
         public List<UserClass> GetListUsers()
         {
            //Retrun the Lisf of user above

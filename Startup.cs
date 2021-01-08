@@ -34,16 +34,16 @@ namespace User_API
 
             //-------------------------------------     Db Connection ---------------------------------------------------------// 
 
-            services.AddDbContextPool<UserContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("UserContextConnectionString")));
+            //services.AddDbContextPool<UserContext>
+               // (options => options.UseSqlServer(Configuration.GetConnectionString("UserContextConnectionString")));
 
-            services.AddScoped<IUserData, SqlUserData>();
+            //services.AddScoped<IUserData, SqlUserData>();
 
             //-------------------------------------     Db Connection End ---------------------------------------------------------// 
 
 
             //Adding the new controller with the Interface and FUserData Class
-            //services.AddSingleton<IUserData, FUserData>();
+            services.AddSingleton<IUserData, FUserData>();
 
             services.AddSwaggerGen(c =>
             {
