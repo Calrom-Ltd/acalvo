@@ -13,8 +13,10 @@ namespace User_API.UserClasses
         {
 
         }
-        //A class will becreated into the database (UserDb)
+        //Creating the tables into the database (UserDb)
         public DbSet<UserClass> Users { get; set; }
+
+        public DbSet<MessageClass> Messages { get; set; }
 
     }
 }

@@ -15,10 +15,14 @@ namespace User_API.Controllers
     {
 
         private IUserData _userData;
+
+        private IUserData _messageData;
         //Constructo which include a interface Injection
-        public UserController(IUserData userData)
+        public UserController(IUserData userData, IUserData messageData)
         {
             _userData = userData;
+
+            _messageData = messageData;
 
         }
 
@@ -34,6 +38,9 @@ namespace User_API.Controllers
             
             //Getting the username from SqlUserData /or / FUserData
             var GetUserN = _userData.GetInfoUserName(UserName);
+
+
+
 
             //If the fields are not null /Display the message
             if (GetUserP != null )
@@ -60,8 +67,15 @@ namespace User_API.Controllers
 
         }
 
+        [HttpGet]
+        [Route("api/[Controller] Message")]
+        public IActionResult GetInfoMessage()
+        {
+            //Calling the method (FUserData/GetListUsers)
+            return Ok(_messageData.GetListMessages());
 
-       
+        }
+
 
 
     }

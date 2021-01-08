@@ -8,7 +8,8 @@ namespace User_API.UserData
 {
     public interface IUserData
     {
-        
+        //----------------------------------------------------- User Methods ---------------------------------------------//
+
         List<UserClass> GetListUsers();
 
         UserClass GetInfoUserPassw(String password);
@@ -17,7 +18,11 @@ namespace User_API.UserData
 
         UserClass AddUser(UserClass user);
 
+        //----------------------------------------------------- Message Methods ---------------------------------------------//
 
+        List<MessageClass> GetListMessages();
+
+        MessageClass GetMessageId();
 
     }
 }

@@ -19,6 +19,9 @@ namespace User_API.UserClasses
         //[Editable (true)]
         public String Message { get; set; }
 
+        //Create relationShip (oneToMany)
+        public ICollection<MessageClass> messageClasses { get; set; }
+
 
     }
 }

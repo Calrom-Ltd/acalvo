@@ -8,8 +8,9 @@ namespace User_API.UserData
 {
     public class SqlUserData : IUserData
     {
-        //Create object to access the List in UserContext
+        //Create object to access to User class 
         private UserContext _userContext;
+        
 
         public SqlUserData (UserContext userContext)
         {
@@ -17,6 +18,8 @@ namespace User_API.UserData
             _userContext = userContext;
 
         }
+
+        //----------------------------------------------------- User Methods ---------------------------------------------//
 
 
         public UserClass AddUser(UserClass user)
@@ -44,6 +47,19 @@ namespace User_API.UserData
         {
             //return the users from the table SqlServer
             return _userContext.Users.ToList();
+        }
+
+
+        //----------------------------------------------------- Message Methods ---------------------------------------------//
+
+        public List<MessageClass> GetListMessages()
+        {
+            return _userContext.Messages.ToList();
+        }
+
+        public MessageClass GetMessageId()
+        {
+            throw new NotImplementedException();
         }
     }
 }

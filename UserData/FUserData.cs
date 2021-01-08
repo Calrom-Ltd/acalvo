@@ -28,6 +28,27 @@ namespace User_API.UserData
              }
          };
 
+        List<MessageClass> ListOfMessages = new List<MessageClass>()
+        {
+
+             new MessageClass()
+            {
+                MessageId = 1,
+                Subject = "Tom",
+                Body= "Working on the API"
+             },
+                new MessageClass()
+            {
+                MessageId = 2,
+                Subject = "Maria",
+                Body = "Developing Training API"
+             }
+
+        };
+
+        //----------------------------------------------------- User Methods ---------------------------------------------//
+
+
         public UserClass AddUser(UserClass user)
         {
             throw new NotImplementedException();
@@ -52,6 +73,19 @@ namespace User_API.UserData
         {
            //Retrun the Lisf of user above
             return ListOfUsers;
+        }
+
+        //----------------------------------------------------- Message Methods ---------------------------------------------//
+
+
+        public List<MessageClass> GetListMessages()
+        {
+            return ListOfMessages;
+        }
+
+        public MessageClass GetMessageId()
+        {
+            throw new NotImplementedException();
         }
     }
 }
