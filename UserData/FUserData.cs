@@ -37,7 +37,7 @@ namespace User_API.UserData
         public UserClass GetInfoUserPassw(string UPassword)
         {
             
-            return ListOfUsers.SingleOrDefault(x => x.Password == UPassword); ;
+            return ListOfUsers.SingleOrDefault(x => x.Password == UPassword); 
         }
 
         //Obtain and Pass the Username

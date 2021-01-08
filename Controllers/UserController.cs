@@ -36,7 +36,7 @@ namespace User_API.Controllers
             var GetUserN = _userData.GetInfoUserName(UserName);
 
             //If the fields are not null /Display the message
-            if (GetUserP != null && GetUserN != null)
+            if (GetUserP != null )
             {
                 return Ok(GetUserP.Message);
             }
