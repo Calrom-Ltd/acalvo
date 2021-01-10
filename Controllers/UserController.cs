@@ -17,6 +17,7 @@ namespace User_API.Controllers
         private IUserData _userData;
 
         private IUserData _messageData;
+
         //Constructo which include a interface Injection
         public UserController(IUserData userData, IUserData messageData)
         {
@@ -39,19 +40,19 @@ namespace User_API.Controllers
             //Getting the username from SqlUserData /or / FUserData
             var GetUserN = _userData.GetInfoUserName(UserName);
 
-
+            //Get userClassPassword (from Message Table) 
+            var ObtainMessage = _messageData.GetMessageId(Password);
 
 
             //If the fields are not null /Display the message
-            if (GetUserP != null && GetUserN !=null)
+            if (GetUserP != null && GetUserN !=null )
             {
-                //var GetMessage = _messageData.GetListMessages();
+               
 
-                //Get userClassPassword (from Message Table) 
-                var ObtainMessage = _messageData.GetMessageId(Password);
-
-                //If UserPassword (User Table) and userClassPassword (from Message Table) //Same
-                if (GetUserP.Password == ObtainMessage.userClass.Password)
+                //If UserPassword (User Table) and userClassPassword (from Message Table) match 
+                //And/  ObtainMessage is not null
+                
+                if ( ObtainMessage != null &&  GetUserP.Password == ObtainMessage.userClass.Password)
                 {
                     //Display the message
                     return Ok(ObtainMessage);

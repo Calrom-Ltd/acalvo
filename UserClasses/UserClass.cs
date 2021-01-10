@@ -15,9 +15,7 @@ namespace User_API.UserClasses
         [MaxLength (50, ErrorMessage = "Name can be only 50 characters Long!" )]
         public String UserName { get; set; }
 
-        [Required]
-        //[Editable (true)]
-        public String Message { get; set; }
+    
 
         //Create relationShip (oneToMany)
         public ICollection<MessageClass> messageClasses { get; set; }

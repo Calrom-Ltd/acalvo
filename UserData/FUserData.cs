@@ -18,13 +18,13 @@ namespace User_API.UserData
             {
                 Password = "Admin1",
                 UserName = "Tom",
-                Message = "Working on the API"
+               // Message = "Working on the API"
              },
                 new UserClass()
             {
                 Password = "Admin2",
                 UserName = "Maria",
-                Message = "Developing Training API"
+                //Message = "Developing Training API"
              }
          };
 
