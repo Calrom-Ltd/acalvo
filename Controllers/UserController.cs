@@ -45,7 +45,24 @@ namespace User_API.Controllers
             //If the fields are not null /Display the message
             if (GetUserP != null && GetUserN !=null)
             {
-                return Ok(GetUserP.Message);
+                //var GetMessage = _messageData.GetListMessages();
+
+                //Get userClassPassword (from Message Table) 
+                var ObtainMessage = _messageData.GetMessageId(Password);
+
+                //If UserPassword (User Table) and userClassPassword (from Message Table) //Same
+                if (GetUserP.Password == ObtainMessage.userClass.Password)
+                {
+                    //Display the message
+                    return Ok(ObtainMessage);
+                }
+                else
+                {
+                    // return Ok(GetMessage.Find(ObtainMessage); 
+                    return NotFound("Not Messages for this User Available!!!");
+                }
+
+               // GetUserP.Message
             }
             else
             {

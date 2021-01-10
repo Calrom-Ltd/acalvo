@@ -27,44 +27,53 @@ namespace User_API.UserData
             throw new NotImplementedException();
         }
 
-        //Obtain and Pass the Password
-
+        //Obtain Password
         public UserClass GetInfoUserPassw(string UPassword)
         {
-            //var userPassw = _userContext.Users.Find(UPassword);
-            //return userPassw;
-             return _userContext.Users.SingleOrDefault(x => x.Password == UPassword);
+
+            //Obtaining User Password from Table Users
+            return _userContext.Users.SingleOrDefault(x => x.Password == UPassword);
 
 
 
         }
-        //Obtain and Pass the UserName
 
+        //Obtain Username
         public UserClass GetInfoUserName(string UName)
         {
-            //var UserN = _userContext.Users.Find(UName);
-            //return UserN;
+            //Obtaining User UserName from Table Users
+
             return _userContext.Users.SingleOrDefault(x => x.UserName == UName);
         }
 
         //Display the List
         public List<UserClass> GetListUsers()
         {
-            //return the users from the table SqlServer
+            //return the users from table SqlServer
             return _userContext.Users.ToList();
         }
 
 
         //----------------------------------------------------- Message Methods ---------------------------------------------//
 
+        //Display the Message Store into the Database 
+
         public List<MessageClass> GetListMessages()
         {
+            
             return _userContext.Messages.ToList();
         }
 
-        public MessageClass GetMessageId()
+        //Obtain the userClass Password from the Table Message
+        //Used to compare that with User Passwrod (Admin1 / Admin1)
+        public MessageClass GetMessageId(String messageId)
         {
-            throw new NotImplementedException();
+
+            //Obtaining userClass.Password value from Table Messages
+
+            return _userContext.Messages.SingleOrDefault(x => x.userClass.Password == messageId);
         }
+
+      
     }
 }

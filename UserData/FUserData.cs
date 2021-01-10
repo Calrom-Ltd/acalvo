@@ -83,10 +83,12 @@ namespace User_API.UserData
             return ListOfMessages;
         }
 
-        public MessageClass GetMessageId()
+      
+        public MessageClass GetMessageId(String messageId)
         {
             throw new NotImplementedException();
         }
+
     }
 }
 

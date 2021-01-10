@@ -22,7 +22,7 @@ namespace User_API.UserData
 
         List<MessageClass> GetListMessages();
 
-        MessageClass GetMessageId();
+        MessageClass GetMessageId(String messageId);
 
     }
 }

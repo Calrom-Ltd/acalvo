@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace User_API.UserClasses
@@ -20,8 +21,8 @@ namespace User_API.UserClasses
 
         
        
-        [Required]
-        //ForeignKey
+       
+        [JsonIgnore]//ForeignKey
         public UserClass userClass { get; set; }
 
 
