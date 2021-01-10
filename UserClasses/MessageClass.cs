@@ -19,10 +19,9 @@ namespace User_API.UserClasses
         public String Body { get; set; }
 
         
+       
+        [Required]
         //ForeignKey
-        public String PasswordId { get; set; }
-
-
         public UserClass userClass { get; set; }
 
 

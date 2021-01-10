@@ -31,15 +31,20 @@ namespace User_API.UserData
 
         public UserClass GetInfoUserPassw(string UPassword)
         {
-            var userPassw = _userContext.Users.Find(UPassword);
-            return userPassw;
+            //var userPassw = _userContext.Users.Find(UPassword);
+            //return userPassw;
+             return _userContext.Users.SingleOrDefault(x => x.Password == UPassword);
+
+
+
         }
         //Obtain and Pass the UserName
 
         public UserClass GetInfoUserName(string UName)
         {
-            var UserN = _userContext.Users.Find(UName);
-            return UserN;
+            //var UserN = _userContext.Users.Find(UName);
+            //return UserN;
+            return _userContext.Users.SingleOrDefault(x => x.UserName == UName);
         }
 
         //Display the List

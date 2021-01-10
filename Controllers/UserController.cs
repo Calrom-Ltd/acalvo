@@ -43,7 +43,7 @@ namespace User_API.Controllers
 
 
             //If the fields are not null /Display the message
-            if (GetUserP != null )
+            if (GetUserP != null && GetUserN !=null)
             {
                 return Ok(GetUserP.Message);
             }
