@@ -12,12 +12,14 @@ namespace User_API.UserClasses
         public String Password { get; set; }
 
         [Required]
-        //Validation rule
-        [MaxLength (50, ErrorMessage = "Name cannot be that long")]
+        [MaxLength(50, ErrorMessage = "Name can be only 50 characters Long!")]
         public String UserName { get; set; }
 
-        [StringLength(200, ErrorMessage = "Message cannot be that long")]
-        public String Message { get; set; }
+
+
+        //Create relationShip (oneToMany)
+        public ICollection<MessageClass> messageClasses { get; set; }
+
 
 
     }
