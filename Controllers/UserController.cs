@@ -14,11 +14,12 @@ namespace User_API.Controllers
     public class UserController : ControllerBase
     {
 
+
         private IUserData _userData;
 
         private IUserData _messageData;
 
-        //Constructo which include a interface Injection
+        //Constructor which include a interface Injection
         public UserController(IUserData userData, IUserData messageData)
         {
             _userData = userData;
@@ -34,62 +35,65 @@ namespace User_API.Controllers
 
         public IActionResult GetInfoUser(String UserName, String Password)
         {
-            //Getting the password from SqlUserData /or / FUserData
+            //Getting the password from SqlUserData 
             var GetUserP = _userData.GetInfoUserPassw(Password);
             
-            //Getting the username from SqlUserData /or / FUserData
+            //Getting the username from SqlUserData 
             var GetUserN = _userData.GetInfoUserName(UserName);
 
             //Get userClassPassword (from Message Table) 
             var ObtainMessage = _messageData.GetMessageId(Password);
 
 
-            //If the fields are not null /Display the message
-            if (GetUserP != null && GetUserN !=null )
+            //If these are not null /Display the message
+            if (GetUserP != null & GetUserN !=null )
             {
                
 
                 //If UserPassword (User Table) and userClassPassword (from Message Table) match 
-                //And/  ObtainMessage is not null
+                //And// ObtainMessage is not null
                 
                 if ( ObtainMessage != null &&  GetUserP.Password == ObtainMessage.userClass.Password)
                 {
-                    //Display the message
+                    //Display the messages 
                     return Ok(ObtainMessage);
                 }
                 else
                 {
-                    // return Ok(GetMessage.Find(ObtainMessage); 
-                    return NotFound("Not Messages for this User Available!!!");
+                    //Display the messages when there is not messages for a particular user
+                    //such as Diego/Admin2
+                    return NotFound("Not Messages Available!!!");
                 }
 
-               // GetUserP.Message
+             
             }
             else
             {
-                //Display the message when the password is wrong entered. 
+                //Display the message when the password is wrong.
                 return NotFound($"UserName  or  Password: {UserName} / {Password} are incorrect ");
             }
         }
 
 
 
-        //----------------------------------    EndPoint Return Users from the List -----------------------------------------------------//
+        //----------------------------------    EndPoint Return Users from User Table -----------------------------------------------------//
         [HttpGet]
-        [Route("api/[controller]")]
+        [Route("api/[controller] DisplayUsers")]
 
         public IActionResult GetInfoUser()
         {
-            //Calling the method (FUserData/GetListUsers)
+            //Calling the method (GetListUsers)
             return Ok(_userData.GetListUsers());
 
         }
 
+        //----------------------------------    EndPoint Return Messages from Messages Table -----------------------------------------------------//
+
         [HttpGet]
-        [Route("api/[Controller] Message")]
+        [Route("api/[Controller] DisplayMessages")]
         public IActionResult GetInfoMessage()
         {
-            //Calling the method (FUserData/GetListUsers)
+            //Calling the method (GetListUsers)
             return Ok(_messageData.GetListMessages());
 
         }

@@ -16,7 +16,6 @@ namespace User_API.UserData
 
         UserClass GetInfoUserName(String name);
 
-        UserClass AddUser(UserClass user);
 
         //----------------------------------------------------- Message Methods ---------------------------------------------//
 

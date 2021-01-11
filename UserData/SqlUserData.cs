@@ -8,7 +8,7 @@ namespace User_API.UserData
 {
     public class SqlUserData : IUserData
     {
-        //Create object to access to User class 
+        //Create an object to access  User class 
         private UserContext _userContext;
         
 
@@ -22,16 +22,11 @@ namespace User_API.UserData
         //----------------------------------------------------- User Methods ---------------------------------------------//
 
 
-        public UserClass AddUser(UserClass user)
-        {
-            throw new NotImplementedException();
-        }
-
         //Obtain Password
         public UserClass GetInfoUserPassw(string UPassword)
         {
 
-            //Obtaining User Password from Table Users
+            //Obtaining User/Password from Table Users
             return _userContext.Users.SingleOrDefault(x => x.Password == UPassword);
 
 
@@ -41,7 +36,7 @@ namespace User_API.UserData
         //Obtain Username
         public UserClass GetInfoUserName(string UName)
         {
-            //Obtaining User UserName from Table Users
+            //return  UserName from Users Table
 
             return _userContext.Users.SingleOrDefault(x => x.UserName == UName);
         }
@@ -49,14 +44,14 @@ namespace User_API.UserData
         //Display the List
         public List<UserClass> GetListUsers()
         {
-            //return the users from table SqlServer
+            //return the users from Users Table
             return _userContext.Users.ToList();
         }
 
 
         //----------------------------------------------------- Message Methods ---------------------------------------------//
 
-        //Display the Message Store into the Database 
+        //Display the Message from the Database 
 
         public List<MessageClass> GetListMessages()
         {
@@ -64,8 +59,8 @@ namespace User_API.UserData
             return _userContext.Messages.ToList();
         }
 
-        //Obtain the userClass Password from the Table Message
-        //Used to compare that with User Passwrod (Admin1 / Admin1)
+        //Obtain the userClass/Password (from Messages Table)
+        //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
         public MessageClass GetMessageId(String messageId)
         {
 
