@@ -21,6 +21,5 @@ namespace User_API.UserClasses
         public ICollection<MessageClass> messageClasses { get; set; }
 
 
-
     }
 }

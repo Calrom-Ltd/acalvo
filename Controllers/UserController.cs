@@ -37,7 +37,7 @@ namespace User_API.Controllers
         {
             //Getting the password from SqlUserData 
             var GetUserP = _userData.GetInfoUserPassw(Password);
-            
+
             //Getting the username from SqlUserData 
             var GetUserN = _userData.GetInfoUserName(UserName);
 
@@ -46,14 +46,14 @@ namespace User_API.Controllers
 
 
             //If these are not null /Display the message
-            if (GetUserP != null & GetUserN !=null )
+            if (GetUserP != null & GetUserN != null)
             {
-               
+
 
                 //If UserPassword (User Table) and userClassPassword (from Message Table) match 
                 //And// ObtainMessage is not null
-                
-                if ( ObtainMessage != null &&  GetUserP.Password == ObtainMessage.userClass.Password)
+
+                if (ObtainMessage != null && GetUserP.Password == ObtainMessage.userClass.Password)
                 {
                     //Display the messages 
                     return Ok(ObtainMessage);
@@ -65,7 +65,7 @@ namespace User_API.Controllers
                     return NotFound("Not Messages Available!!!");
                 }
 
-             
+
             }
             else
             {

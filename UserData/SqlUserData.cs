@@ -10,9 +10,9 @@ namespace User_API.UserData
     {
         //Create an object to access  User class 
         private UserContext _userContext;
-        
 
-        public SqlUserData (UserContext userContext)
+
+        public SqlUserData(UserContext userContext)
         {
 
             _userContext = userContext;
@@ -55,7 +55,7 @@ namespace User_API.UserData
 
         public List<MessageClass> GetListMessages()
         {
-            
+
             return _userContext.Messages.ToList();
         }
 
@@ -69,6 +69,6 @@ namespace User_API.UserData
             return _userContext.Messages.SingleOrDefault(x => x.userClass.Password == messageId);
         }
 
-      
+
     }
 }

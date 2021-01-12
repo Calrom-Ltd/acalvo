@@ -13,15 +13,15 @@ namespace User_API.UserClasses
         [Key]
         public int MessageId { get; set; }
 
-        [MaxLength (50, ErrorMessage ="Only admit 50 characters")]
+        [MaxLength(50, ErrorMessage = "Only admit 50 characters")]
         public String Subject { get; set; }
 
-        [MaxLength(300, ErrorMessage ="Body cannot be over 300 characters")]
+        [MaxLength(300, ErrorMessage = "Body cannot be over 300 characters")]
         public String Body { get; set; }
 
-        
-       
-       
+
+
+
         [JsonIgnore]//ForeignKey
         public UserClass userClass { get; set; }
 
