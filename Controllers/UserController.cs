@@ -31,7 +31,7 @@ namespace User_API.Controllers
         //----------------------------------    EndPoint Return Users Based on Password from the List ---------------------------------------//
 
         [HttpPost]
-        [Route("api/[controller]/{UserName}/{Password}")]
+        [Route("{UserName}/{Password}")]
 
         public IActionResult GetInfoUser(String UserName, String Password)
         {
@@ -78,7 +78,7 @@ namespace User_API.Controllers
 
         //----------------------------------    EndPoint Return Users from User Table -----------------------------------------------------//
         [HttpGet]
-        [Route("api/[controller] DisplayUsers")]
+        [Route("DisplayUsers")]
 
         public IActionResult GetInfoUser()
         {
@@ -90,7 +90,7 @@ namespace User_API.Controllers
         //----------------------------------    EndPoint Return Messages from Messages Table -----------------------------------------------------//
 
         [HttpGet]
-        [Route("api/[Controller] DisplayMessages")]
+        [Route("DisplayMessages")]
         public IActionResult GetInfoMessage()
         {
             //Calling the method (GetListUsers)
