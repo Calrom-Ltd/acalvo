@@ -21,7 +21,7 @@ namespace User_API.UserData
 
         List<MessageClass> GetListMessages();
 
-        MessageClass GetMessageId(String messageId);
+        List<MessageClass> GetMessageId(String messageId);
 
     }
 }

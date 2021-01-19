@@ -10,6 +10,8 @@ namespace User_API.UserData
     {
         //Create an object to access  User class 
         private UserContext _userContext;
+        private UserClass UserClass;
+        private MessageClass ObtainMessageId;
 
 
         public SqlUserData(UserContext userContext)
@@ -61,12 +63,20 @@ namespace User_API.UserData
 
         //Obtain the userClass/Password (from Messages Table)
         //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
-        public MessageClass GetMessageId(String messageId)
+        public List<MessageClass> GetMessageId(String messageId)
         {
+            List<MessageClass> MessagesList = new List<MessageClass>();
+            
 
-            //Obtaining userClass.Password value from Table Messages
+            var listMessage = _userContext.Messages.Where(x => x.userClass.Password == messageId);
 
-            return _userContext.Messages.SingleOrDefault(x => x.userClass.Password == messageId);
+            foreach (var s in listMessage)
+            {
+                MessagesList.Add(s);
+            }
+
+
+            return MessagesList;
         }
 
 
