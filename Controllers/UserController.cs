@@ -92,7 +92,7 @@ namespace User_API.Controllers
         public IActionResult GetInfoMessage()
         {
             //Calling the method (GetListUsers)
-            return Ok(_messageData.GetListMessages());
+            return Ok(_userData.GetListMessages());
 
         }
 

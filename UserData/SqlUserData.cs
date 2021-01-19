@@ -10,10 +10,7 @@ namespace User_API.UserData
     {
         //Create an object to access  User class 
         private UserContext _userContext;
-        private UserClass UserClass;
-        private MessageClass ObtainMessageId;
-
-
+     
         public SqlUserData(UserContext userContext)
         {
 
@@ -65,18 +62,23 @@ namespace User_API.UserData
         //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
         public List<MessageClass> GetMessageId(String messageId)
         {
-            List<MessageClass> MessagesList = new List<MessageClass>();
-            
+            //New List to store the messages
+            List<MessageClass> StroreUserMessagesList = new List<MessageClass>();
+
+
+            //Filtering operators/ sequence(collection) based on a given cirteria (MessageCalss - userClass)
+            // Using Where -- Returns values from the collection based on a predicate function. (Method Syntax)
 
             var listMessage = _userContext.Messages.Where(x => x.userClass.Password == messageId);
 
+            //Adding the messages into the List
             foreach (var s in listMessage)
             {
-                MessagesList.Add(s);
+                StroreUserMessagesList.Add(s);
             }
 
 
-            return MessagesList;
+            return StroreUserMessagesList;
         }
 
 
