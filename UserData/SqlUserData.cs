@@ -18,11 +18,16 @@ namespace User_API.UserData
 
         }
 
-        //----------------------------------------------------- User Methods ---------------------------------------------//
+        //-----------                                         USER METHOD                                          -------------//
 
+        public List<Users> GetUsersList()
+        {
+            //return the users from Users Table
+            return _userContext.Users.ToList();
+        }
 
         //Obtain Password
-        public Users GetInfoUserPassw(string UPassword)
+        public Users GetUserPassword(string UPassword)
         {
 
             //Obtaining User/Password from Table Users
@@ -33,26 +38,36 @@ namespace User_API.UserData
         }
 
         //Obtain Username
-        public Users GetInfoUserName(string UName)
+        public Users GetUserName(string UName)
         {
             //return  UserName from Users Table
 
             return _userContext.Users.SingleOrDefault(x => x.UserName == UName);
         }
 
-        //Display the List
-        public List<Users> GetListUsers()
+
+        public Users GetUserId(Guid id)
         {
-            //return the users from Users Table
-            return _userContext.Users.ToList();
+            throw new NotImplementedException();
+        }
+
+        public Users GetUserId(Users GetId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Users GetPasswordChanged(Users ChangePasswod, string NewPassword)
+        {
+            throw new NotImplementedException();
         }
 
 
-        //----------------------------------------------------- Message Methods ---------------------------------------------//
+
+        //-----------                                         MESSAGE METHODS                                          -------------//
 
         //Display the Message from the Database 
 
-        public List<Messages> GetListMessages()
+        public List<Messages> GetMessageList()
         {
 
             return _userContext.Messages.ToList();
@@ -60,7 +75,7 @@ namespace User_API.UserData
 
         //Obtain the userClass/Password (from Messages Table)
         //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
-        public List<Messages> GetMessageId(String messageId)
+        public List<Messages> GetMessageOfUser(String messageId)
         {
             //New List to store the messages
             List<Messages> StroreUserMessagesList = new List<Messages>();
@@ -80,7 +95,6 @@ namespace User_API.UserData
 
             return StroreUserMessagesList;
         }
-
 
     }
 }
