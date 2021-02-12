@@ -22,7 +22,7 @@ namespace User_API.UserData
 
 
         //Obtain Password
-        public UserClass GetInfoUserPassw(string UPassword)
+        public Users GetInfoUserPassw(string UPassword)
         {
 
             //Obtaining User/Password from Table Users
@@ -33,7 +33,7 @@ namespace User_API.UserData
         }
 
         //Obtain Username
-        public UserClass GetInfoUserName(string UName)
+        public Users GetInfoUserName(string UName)
         {
             //return  UserName from Users Table
 
@@ -41,7 +41,7 @@ namespace User_API.UserData
         }
 
         //Display the List
-        public List<UserClass> GetListUsers()
+        public List<Users> GetListUsers()
         {
             //return the users from Users Table
             return _userContext.Users.ToList();
@@ -52,7 +52,7 @@ namespace User_API.UserData
 
         //Display the Message from the Database 
 
-        public List<MessageClass> GetListMessages()
+        public List<Messages> GetListMessages()
         {
 
             return _userContext.Messages.ToList();
@@ -60,16 +60,16 @@ namespace User_API.UserData
 
         //Obtain the userClass/Password (from Messages Table)
         //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
-        public List<MessageClass> GetMessageId(String messageId)
+        public List<Messages> GetMessageId(String messageId)
         {
             //New List to store the messages
-            List<MessageClass> StroreUserMessagesList = new List<MessageClass>();
+            List<Messages> StroreUserMessagesList = new List<Messages>();
 
 
             //Filtering operators/ sequence(collection) based on a given cirteria (MessageCalss - userClass)
             // Using Where -- Returns values from the collection based on a predicate function. (Method Syntax)
 
-            var listMessage = _userContext.Messages.Where(x => x.userClass.Password == messageId);
+            var listMessage = _userContext.Messages.Where(x => x.userId.Password == messageId);
 
             //Adding the messages into the List
             foreach (var s in listMessage)

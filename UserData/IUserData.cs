@@ -10,18 +10,18 @@ namespace User_API.UserData
     {
         //----------------------------------------------------- User Methods ---------------------------------------------//
 
-        List<UserClass> GetListUsers();
+        List<Users> GetListUsers();
 
-        UserClass GetInfoUserPassw(String password);
+        Users GetInfoUserPassw(String password);
 
-        UserClass GetInfoUserName(String name);
+        Users GetInfoUserName(String name);
 
 
         //----------------------------------------------------- Message Methods ---------------------------------------------//
 
-        List<MessageClass> GetListMessages();
+        List<Messages> GetListMessages();
 
-        List<MessageClass> GetMessageId(String messageId);
+        List<Messages> GetMessageId(String messageId);
 
     }
 }
