@@ -46,55 +46,86 @@ namespace User_API.UserData
         }
 
 
-        public Users GetUserId(Guid id)
+        public Users GetId(Guid id)
         {
-            throw new NotImplementedException();
+            var UserId = _userContext.Users.Find(id);
+            //Return UserId
+            return UserId;
         }
 
-        public Users GetUserId(Users GetId)
+        public Users GetUserId(Users userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Users GetPasswordChanged(Users ChangePasswod, string NewPassword)
-        {
-            throw new NotImplementedException();
-        }
+             //Finding UserId 
+            var existingUserPassword = _userContext.Users.Find(userId.UserId);
 
 
-
-        //-----------                                         MESSAGE METHODS                                          -------------//
-
-        //Display the Message from the Database 
-
-        public List<Messages> GetMessageList()
-        {
-
-            return _userContext.Messages.ToList();
-        }
-
-        //Obtain the userClass/Password (from Messages Table)
-        //It will be used to compare that with User/Passwrod (from Users Table) (Admin1 / Admin1)
-        public List<Messages> GetMessageOfUser(String messageId)
-        {
-            //New List to store the messages
-            List<Messages> StroreUserMessagesList = new List<Messages>();
-
-
-            //Filtering operators/ sequence(collection) based on a given cirteria (MessageCalss - userClass)
-            // Using Where -- Returns values from the collection based on a predicate function. (Method Syntax)
-
-            var listMessage = _userContext.Messages.Where(x => x.userId.Password == messageId);
-
-            //Adding the messages into the List
-            foreach (var s in listMessage)
+            if (existingUserPassword != null)
             {
-                StroreUserMessagesList.Add(s);
+
+                //Return User Data (Based on the Id)
+                return existingUserPassword;
+            }
+            else
+            {
+                throw new NotImplementedException();
+
+            }
+
+        }
+
+        public Users GetPasswordChanged(Users userId, string NewPassword)
+        {
+
+
+            if (userId.Password != null)
+            {
+                //Passing New Password
+                userId.Password = NewPassword;
+
+                //Updating the Password
+                _userContext.Users.Update(userId);
+
+                //Save Changes
+                _userContext.SaveChanges();
+
+                //Return User Data (New ID)
+                return userId;
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
 
 
-            return StroreUserMessagesList;
+        }
+
+        //-----------                                         MESSAGE METHODS                                          -------------//
+
+        public List<Messages> GetMessageList()
+        {
+            //return List of Messages
+            return _userContext.Messages.ToList();
+        }
+
+        //----------------------------------------------------- Lisf of Messages Based on UsersName/Password  ---------------------------------------------//
+        public List<Messages> GetMessageOfUser(String messageId)
+        {
+            //New List Delcared
+            List<Messages> StoreUserMessages = new List<Messages>();
+
+            //Getting the messages
+            var ListOfMessages = _userContext.Messages.Where(x => x.userId.Password == messageId);
+
+            //Passing messages to new List
+            foreach (var i in ListOfMessages)
+            {
+                StoreUserMessages.Add(i);
+            }
+
+            //Return the List
+            return StoreUserMessages;
         }
 
     }
+
 }

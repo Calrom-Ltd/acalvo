@@ -12,7 +12,7 @@ namespace User_API.UserData
 
         List<Users> GetUsersList();
 
-        Users GetUserId(Guid id);
+        Users GetId(Guid id);
 
         Users GetUserPassword(string password);
 

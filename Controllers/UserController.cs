@@ -26,7 +26,7 @@ namespace User_API.Controllers
 
         }
 
-        //----------------------------------    EndPoint Return Users Based on Password from the List ---------------------------------------//
+        //----------------------------------    EndPoint  List Of User's Messages (Based on UserName/Password)  ------------------------------//
 
         [HttpPost]
         [Route("{UserName}/{Password}")]
@@ -34,17 +34,17 @@ namespace User_API.Controllers
         public IActionResult GetUserLogIn(String UserName, String Password)
         {
             //Getting Password
-            var GetUserP = _userData.GetUserPassword(Password);
+            var ExistUserPassword = _userData.GetUserPassword(Password);
 
             //Getting UserName
-            var GetUserN = _userData.GetUserName(UserName);
+            var ExistUserName = _userData.GetUserName(UserName);
 
             //Getting Messages
             var ObtainMessage = _userData.GetMessageOfUser(Password);
 
 
             
-            if (GetUserP != null & GetUserN != null)
+            if (ExistUserPassword != null & ExistUserName != null)
             {
 
 
@@ -93,7 +93,79 @@ namespace User_API.Controllers
             return Ok(_userData.GetMessageList());
         }
 
+        //----------------------------------    EndPoint - Obtain UserId (Based on UserName/Password) -----------------------------------------------------//
 
 
+        [HttpPost]
+        [Route("GetUserId/{UserName}/{Password}")]
+        public IActionResult GetUserIdBasedOnUserNamePassword(String UserName, string Password)
+        {
+
+            //Get UserName
+            var ExistUserName = _userData.GetUserName(UserName);
+
+            //Get Passwod
+            var ExistUserPassword = _userData.GetUserPassword(Password);
+
+           
+            if (ExistUserName != null & ExistUserPassword != null)
+            {
+
+                ExistUserPassword.Password = ExistUserPassword.Password;
+
+                //Get User-id
+                _userData.GetUserId(ExistUserPassword);
+
+                //Return User-id
+                return Ok(ExistUserPassword.UserId);
+            }
+            else
+            {
+                return NotFound("Password could not be Updated");
+
+            }
+
+
+        }
+
+        //----------------------------------    EndPoint - Change/Update Password -----------------------------------------------------//
+
+        [HttpPost]
+        [Route("ChangePassword/{UserName}/{Password}/{NewPassword}")]
+        public IActionResult ChangePassword(string UserName, string Password, string NewPassword, Users User)
+        {
+
+            //Get UserName
+            var ExistUserName = _userData.GetUserName(UserName);
+
+            //Get Password
+            var ExistUserPassword = _userData.GetUserPassword(Password);
+
+            //Get Id of the User
+            var UserId = _userData.GetUserId(ExistUserPassword);
+
+            //Passing the New Password
+            var EditPassword = NewPassword;
+
+           
+            if (ExistUserName != null & ExistUserPassword != null)
+            {
+
+                User.UserId = UserId.UserId;
+
+                //Passing Paramters (Update Password)
+                _userData.GetPasswordChanged(UserId, EditPassword);
+
+                //return User details (Password Updated)
+                return Ok(UserId);
+            }
+            else
+            {
+                return NotFound("Password could not be Updated");
+
+            }
+
+
+        }
     }
 }
