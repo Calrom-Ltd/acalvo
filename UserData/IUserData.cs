@@ -8,20 +8,27 @@ namespace User_API.UserData
 {
     public interface IUserData
     {
-        //----------------------------------------------------- User Methods ---------------------------------------------//
+        //-----------                                         USER METHOD                                          -------------//
 
-        List<UserClass> GetListUsers();
+        List<Users> GetUsersList();
 
-        UserClass GetInfoUserPassw(String password);
+        Users GetId(Guid id);
 
-        UserClass GetInfoUserName(String name);
+        Users GetUserPassword(string password);
+
+        Users GetUserName(string name);
+
+        Users GetUserId(Users GetId);
+
+        Users GetPasswordChanged(Users ChangePasswod, string NewPassword);
 
 
-        //----------------------------------------------------- Message Methods ---------------------------------------------//
+        //-----------                                         MESSAGE METHODS                                          -------------//
 
-        List<MessageClass> GetListMessages();
+        List<Messages> GetMessageList();
 
-        List<MessageClass> GetMessageId(String messageId);
+        List<Messages> GetMessageOfUser(string messageId);
+
 
     }
 }

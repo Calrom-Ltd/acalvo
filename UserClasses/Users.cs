@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace User_API.UserClasses
 {
-    public class UserClass
+    public class Users
     {
         [Key]
+        public Guid UserId { get; set; }
+
+        [Required]
+        [MaxLength(50, ErrorMessage = "Name can be only 50 characters Long!")]
         public String Password { get; set; }
 
         [Required]
@@ -18,7 +22,7 @@ namespace User_API.UserClasses
 
 
         //Create relationShip (oneToMany)
-        public ICollection<MessageClass> messageClasses { get; set; }
+        public ICollection<Messages> messageId { get; set; }
 
 
     }
