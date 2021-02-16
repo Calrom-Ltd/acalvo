@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using User_API.UserClasses;
 
 namespace User_API.UserData
@@ -9,13 +8,11 @@ namespace User_API.UserData
     public class SqlUserData : IUserData
     {
         //Create an object to access  User class 
-        private UserContext _userContext;
-     
+        private readonly UserContext _userContext;
+
         public SqlUserData(UserContext userContext)
         {
-
             _userContext = userContext;
-
         }
 
         //-----------                                         USER METHOD                                          -------------//
@@ -48,15 +45,15 @@ namespace User_API.UserData
 
         public Users GetId(Guid id)
         {
-            var UserId = _userContext.Users.Find(id);
+            Users UserId = _userContext.Users.Find(id);
             //Return UserId
             return UserId;
         }
 
         public Users GetUserId(Users userId)
         {
-             //Finding UserId 
-            var existingUserPassword = _userContext.Users.Find(userId.UserId);
+            //Finding UserId 
+            Users existingUserPassword = _userContext.Users.Find(userId.UserId);
 
 
             if (existingUserPassword != null)
@@ -108,16 +105,16 @@ namespace User_API.UserData
         }
 
         //----------------------------------------------------- Lisf of Messages Based on UsersName/Password  ---------------------------------------------//
-        public List<Messages> GetMessageOfUser(String messageId)
+        public List<Messages> GetMessageOfUser(string messageId)
         {
             //New List Delcared
             List<Messages> StoreUserMessages = new List<Messages>();
 
             //Getting the messages
-            var ListOfMessages = _userContext.Messages.Where(x => x.userId.Password == messageId);
+            IQueryable<Messages> ListOfMessages = _userContext.Messages.Where(x => x.userId.Password == messageId);
 
             //Passing messages to new List
-            foreach (var i in ListOfMessages)
+            foreach (Messages i in ListOfMessages)
             {
                 StoreUserMessages.Add(i);
             }

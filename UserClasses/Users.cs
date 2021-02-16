@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace User_API.UserClasses
 {
@@ -13,11 +11,11 @@ namespace User_API.UserClasses
 
         [Required]
         [MaxLength(50, ErrorMessage = "Name can be only 50 characters Long!")]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = "Name can be only 50 characters Long!")]
-        public String UserName { get; set; }
+        public string UserName { get; set; }
 
 
 
