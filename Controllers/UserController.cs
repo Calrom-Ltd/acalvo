@@ -33,18 +33,19 @@ namespace User_API.Controllers
         public IActionResult GetUserLogIn([FromQuery]string UserName, [FromQuery]string Password)
         {
             //Getting Password
-            Users ExistUserPassword = _userData.GetUserPassword(Password);
-
-            //Getting UserName
-            Users ExistUserName = _userData.GetUserName(UserName);
-
-            //Getting Messages
-            List<Messages> ObtainMessage = _userData.GetMessageOfUser(Password);
+           
 
 
 
-            if (ExistUserPassword != null & ExistUserName != null)
+            if (UserName != null & Password != null)
             {
+                Users ExistUserPassword = _userData.GetUserPassword(Password);
+
+                //Getting UserName
+                Users ExistUserName = _userData.GetUserName(UserName);
+
+                //Getting Messages
+                List<Messages> ObtainMessage = _userData.GetMessageOfUser(Password);
 
 
                 if (ObtainMessage != null)
@@ -63,7 +64,9 @@ namespace User_API.Controllers
             else
             {
                 //Display Error Message (Password or UserName) Incorrest
-                return NotFound($"UserName  or  Password: {UserName} / {Password} are incorrect ");
+                //return NotFound($"UserName  or  Password: {UserName} / {Password} are incorrect ");
+
+                return NotFound("Fill the All the fields!!!");
             }
         }
 
@@ -170,24 +173,32 @@ namespace User_API.Controllers
                     
                     //Get Password
                     Users ExistUserPassword = _userData.GetUserPassword(Password);
-
                     
                     Users UserId; 
 
                     //Passing the New Password
-                    string EditPassword = NewPassword;
+                    string EditPassword =  NewPassword;
 
                     if (_userData.GetUsersList().Contains(ExistUserPassword) & _userData.GetUsersList().Contains(ExistUserName))
                     {
-                        UserId = _userData.GetUserId(ExistUserPassword);
+                        // Check if NewPassword is taken (exist already)
+                        if (_userData.GetUsersList().Contains(_userData.GetUserPassword(NewPassword)) )
+                        {
+                            return NotFound("This user's password is currently in use!!!");
+                           
+                        }
+                        else 
+                        {
+                            UserId = _userData.GetUserId(ExistUserPassword);
 
-                        User.UserId = UserId.UserId;
+                            User.UserId = UserId.UserId;
 
-                        //Passing Paramters (Update Password)
-                        _userData.GetPasswordChanged(UserId, EditPassword);
+                            //Passing Paramters (Update Password)
+                            _userData.GetPasswordChanged(UserId, EditPassword);
 
-                        //return User details (Password Updated)
-                        return Ok(UserId);
+                            //return User details (Password Updated)
+                            return Ok(UserId);
+                        }
                     }
                     else
                     {
