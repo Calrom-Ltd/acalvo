@@ -1,224 +1,157 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using User_API.UserClasses;
 using User_API.UserData;
 
 namespace User_API.Controllers
 {
+    /// <summary>
+    /// Comment that allow to have more than one Parameter with different Binding set
+    /// Class UserController.
+    /// Implements the <see cref="Microsoft.AspNetCore.Mvc.Controller" />
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("api/[controller]")]
-
-    // Comment that allow to have more than one Parameter with different Binding set
     [ApiController]
     public class UserController : Controller
     {
+        /// <summary>
+        /// The user data.
+        /// </summary>
+        private readonly IUserData userData;
 
 
-        private readonly IUserData _userData;
-
-
-
-        //Constructor which include an interface Injection
-        public UserController(IUserData userData, IUserData messageData)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="userData">The user data.</param>
+        /// Constructor which include an interface Injection
+        public UserController(IUserData userData)
         {
-            _userData = userData;
-
+            this.userData = userData;
         }
 
-        //----------------------------------    EndPoint  List Of User's Messages (Based on UserName/Password)  ------------------------------//
-
-        [HttpPost]
-        [Route("LogIn")]
-
-        public IActionResult GetUserLogIn([FromQuery]string UserName, [FromQuery]string Password)
+        /// <summary>
+        /// Displays all users.
+        /// </summary>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        [Route("DisplayAllUsers")]
+        public IActionResult DisplayAllUsers()
         {
-            //Getting Password
-           
+            return this.Ok(this.userData.GetUsersList());
+        }
 
 
 
-            if (UserName != null & Password != null)
+        /// <summary>
+        /// Gets the information user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        [Route("DisplayInfoUser")]
+        public IActionResult GetInfoUser([FromQuery] string userName)
+        {
+            if (userName != null)
             {
-                Users ExistUserPassword = _userData.GetUserPassword(Password);
-
-                //Getting UserName
-                Users ExistUserName = _userData.GetUserName(UserName);
-
-                //Getting Messages
-                List<Messages> ObtainMessage = _userData.GetMessageOfUser(Password);
-
-
-                if (ObtainMessage != null)
-                {
-                    //Return List of User Mesages
-                    return Ok(ObtainMessage);
-                }
-                else
-                {
-                    //Return message (message not found)
-                    return NotFound("Not Messages Not Found!!!");
-                }
-
-
+                return this.Ok(this.userData.GetInfoUser(userName));
             }
             else
             {
-                //Display Error Message (Password or UserName) Incorrest
-                //return NotFound($"UserName  or  Password: {UserName} / {Password} are incorrect ");
-
-                return NotFound("Fill the All the fields!!!");
+                return this.Ok(this.userData.GetInfoUser(userName));
             }
         }
 
-
-
-        //----------------------------------    EndPoint -  List of Users -----------------------------------------------------//
-
-        [HttpGet]
-        [Route("DisplayUsers")]
-
-        public IActionResult GetUserList([FromQuery] string findUser)
-        {
-            //Calling the method (SqlUserData/GetUserList())
-           // return Ok(_userData.GetUsersList());
-
-            switch (findUser)
-            {
-
-                case "All":
-                    return Ok(_userData.GetUsersList());
-
-                case "Robb":
-                    return Ok(_userData.GetUserName(findUser));
-
-                case "Tomasa":
-                    return Ok(_userData.GetUserName(findUser));
-
-                case "Diana":
-                    return Ok(_userData.GetUserName(findUser));
-
-                case "Tom":
-                    return Ok(_userData.GetUserName(findUser));
-
-                default:
-                    return NotFound("User Not Found");
-
-            }
-
-
-
-        }
-
-        //----------------------------------    EndPoint - List of Messages -----------------------------------------------------//
-
-
+        /// <summary>
+        /// Gets the message list.
+        /// </summary>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         [Route("MessagesList")]
         public IActionResult GetMessageList()
         {
-            //Calling the method (SqlUserData/GetMessageList())
-            return Ok(_userData.GetMessageList());
+            return this.Ok(userData.GetMessageList());
         }
 
-        //----------------------------------    EndPoint - Obtain UserId (Based on UserName/Password) -----------------------------------------------------//
 
-
+        /// <summary>
+        /// Gets the user identifier based on user name password.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
-        [Route("GetUserId")]
-        public IActionResult GetUserIdBasedOnUserNamePassword([FromQuery]string UserName, [FromQuery]string Password)
+        [Route("ObtainUserID")]
+        public IActionResult GetUsersID([FromQuery] string userName, [FromQuery] string password)
         {
 
-            //Get UserName
-            Users ExistUserName = _userData.GetUserName(UserName);
-
-            //Get Passwod
-            Users ExistUserPassword = _userData.GetUserPassword(Password);
-
-
-            if (ExistUserName != null & ExistUserPassword != null)
+            if (userName != null & password != null)
             {
+                Users userId = this.userData.GetUserId(userName, password);
 
-                ExistUserPassword.Password = ExistUserPassword.Password;
-
-                //Get User-id
-                _userData.GetUserId(ExistUserPassword);
-
-                //Return User-id
-                return Ok(ExistUserPassword.UserId);
+                return this.Ok(userId.UserId);
             }
             else
             {
-                return NotFound("Password could not be Updated");
-
+                return this.NotFound("Fill the All required fields!!!");
             }
-
-
         }
 
-        //----------------------------------    EndPoint - Change/Update Password -----------------------------------------------------//
-
+        /// <summary>
+        /// Gets the user log in.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
-        [Route("ChangePassword")]
-        public IActionResult ChangePassword([FromQuery] string UserName, [FromQuery] string Password,[FromQuery] string NewPassword, Users User)
+        [Route("LogIn")]
+        public IActionResult GetUserLogIn([FromQuery] string userName, [FromQuery] string password)
         {
-            try
+
+            if (userName != null & password != null)
             {
-               
+                List<Messages> ObtainMessage = this.userData.GetMessageOfUser(password);
 
-                if (UserName != null & Password != null & NewPassword != null)
+                if (ObtainMessage != null)
                 {
-
-                    //Get UserName
-                    Users ExistUserName = _userData.GetUserName(UserName);
-                    
-                    //Get Password
-                    Users ExistUserPassword = _userData.GetUserPassword(Password);
-                    
-                    Users UserId; 
-
-                    //Passing the New Password
-                    string EditPassword =  NewPassword;
-
-                    if (_userData.GetUsersList().Contains(ExistUserPassword) & _userData.GetUsersList().Contains(ExistUserName))
-                    {
-                        // Check if NewPassword is taken (exist already)
-                        if (_userData.GetUsersList().Contains(_userData.GetUserPassword(NewPassword)) )
-                        {
-                            return NotFound("This user's password is currently in use!!!");
-                           
-                        }
-                        else 
-                        {
-                            UserId = _userData.GetUserId(ExistUserPassword);
-
-                            User.UserId = UserId.UserId;
-
-                            //Passing Paramters (Update Password)
-                            _userData.GetPasswordChanged(UserId, EditPassword);
-
-                            //return User details (Password Updated)
-                            return Ok(UserId);
-                        }
-                    }
-                    else
-                    {
-                        return NotFound("UserName or Password Not Valid ");
-
-                    }
-                    
+                    return Ok(ObtainMessage);
                 }
                 else
                 {
-                    return NotFound("Fill all the fields required");
+                    return this.NotFound("Not Messages Not Found!!!");
                 }
-              
-               
-            }
-            catch (KeyNotFoundException)
-            {
-               return NotFound("UserName or Password ");
-            }
 
+            }
+            else
+            {
+                return this.NotFound("Fill the All the fields!!!");
+            }
+        }
+
+
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpPost]
+        [Route("ChangePassword")]
+        public IActionResult ChangePassword([FromQuery] string userName, [FromQuery] string password, [FromQuery] string newPassword)
+        {
+
+            if (userName != null & password != null & newPassword != null)
+            {
+                Users theNewPassword = this.userData.GetPasswordChanged(userName, password, newPassword);
+
+                return this.Ok(theNewPassword);
+            }
+            else
+            {
+                return this.NotFound("Fill all the fields required");
+            }
         }
     }
 }
