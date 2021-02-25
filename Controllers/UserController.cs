@@ -83,7 +83,7 @@ namespace User_API.Controllers
         /// <returns>IActionResult.</returns>
         [HttpPost]
         [Route("ObtainUserID")]
-        public IActionResult GetUsersID([FromQuery] string userName, [FromQuery] string password)
+        public IActionResult ObtainUsersID([FromQuery] string userName, [FromQuery] string password)
         {
 
             if (userName != null & password != null)
@@ -121,14 +121,12 @@ namespace User_API.Controllers
                 {
                     return this.NotFound("Not Messages Not Found!!!");
                 }
-
             }
             else
             {
                 return this.NotFound("Fill the All the fields!!!");
             }
         }
-
 
         /// <summary>
         /// Changes the password.

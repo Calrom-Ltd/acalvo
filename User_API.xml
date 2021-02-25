@@ -43,7 +43,7 @@
             </summary>
             <returns>IActionResult.</returns>
         </member>
-        <member name="M:User_API.Controllers.UserController.GetUsersID(System.String,System.String)">
+        <member name="M:User_API.Controllers.UserController.ObtainUsersID(System.String,System.String)">
             <summary>
             Gets the user identifier based on user name password.
             </summary>
