@@ -4,6 +4,12 @@
         <name>User_API</name>
     </assembly>
     <members>
+        <member name="M:User_API.Controllers.MessageController.DisplayAllMessages">
+            <summary>
+            Displays all messages.
+            </summary>
+            <returns>IActionResult.</returns>
+        </member>
         <member name="T:User_API.Controllers.UserController">
             <summary>
             Comment that allow to have more than one Parameter with different Binding set
@@ -12,17 +18,22 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="F:User_API.Controllers.UserController.userData">
+        <member name="F:User_API.Controllers.UserController.userServices">
             <summary>
-            The user data.
+            The user services
             </summary>
         </member>
-        <member name="M:User_API.Controllers.UserController.#ctor(User_API.UserData.IUserData)">
+        <member name="F:User_API.Controllers.UserController.messageServices">
+            <summary>
+            The messages services
+            </summary>
+        </member>
+        <member name="M:User_API.Controllers.UserController.#ctor(User_API.Services.IUserServices,User_API.Services.IMessageServices)">
             <summary>
             Initializes a new instance of the <see cref="T:User_API.Controllers.UserController"/> class.
             </summary>
-            <param name="userData">The user data.</param>
-            Constructor which include an interface Injection
+            <param name="userServices">The user services.</param>
+            <param name="messageServices">The messages services.</param>
         </member>
         <member name="M:User_API.Controllers.UserController.DisplayAllUsers">
             <summary>
@@ -30,30 +41,9 @@
             </summary>
             <returns>IActionResult.</returns>
         </member>
-        <member name="M:User_API.Controllers.UserController.GetInfoUser(System.String)">
+        <member name="M:User_API.Controllers.UserController.LogIn(System.String,System.String)">
             <summary>
-            Gets the information user.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <returns>IActionResult.</returns>
-        </member>
-        <member name="M:User_API.Controllers.UserController.GetMessageList">
-            <summary>
-            Gets the message list.
-            </summary>
-            <returns>IActionResult.</returns>
-        </member>
-        <member name="M:User_API.Controllers.UserController.ObtainUsersID(System.String,System.String)">
-            <summary>
-            Gets the user identifier based on user name password.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <param name="password">The password.</param>
-            <returns>IActionResult.</returns>
-        </member>
-        <member name="M:User_API.Controllers.UserController.GetUserLogIn(System.String,System.String)">
-            <summary>
-            Gets the user log in.
+            Logs the in.
             </summary>
             <param name="userName">Name of the user.</param>
             <param name="password">The password.</param>
@@ -67,6 +57,233 @@
             <param name="password">The password.</param>
             <param name="newPassword">The new password.</param>
             <returns>IActionResult.</returns>
+        </member>
+        <member name="T:User_API.UserData.IUserData">
+            <summary>
+            Interface IUserData.
+            </summary>
+        </member>
+        <member name="M:User_API.UserData.IUserData.UsersList">
+            <summary>
+            Gets the users list.
+            </summary>
+            <returns>List&lt;Users&gt;.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.ObtainUserPassword(System.String)">
+            <summary>
+            Gets the user password.
+            </summary>
+            <param name="password">The password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.ObtainUserName(System.String)">
+            <summary>
+            Obtains the name of the user.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.UserNameAndPasswordVerification(System.String,System.String)">
+            <summary>
+            Users the name and password verification.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="password">The password.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.ObtainUserId(User_API.UserClasses.Users)">
+            <summary>
+            Obtains the user identifier.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.ChangePassword(User_API.UserClasses.Users,System.String)">
+            <summary>
+            Gets the password changed.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <param name="newPassword">Creates new password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.MessagesList">
+            <summary>
+            Messageses the list.
+            </summary>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="M:User_API.UserData.IUserData.MessageOfUser(User_API.UserClasses.Users)">
+            <summary>
+            Gets the message of user.
+            </summary>
+            <param name="userId">The user identifier.</param>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="T:User_API.UserData.SqlUserData">
+            <summary>
+            Class SqlUserData.
+            Implements the <see cref="T:User_API.UserData.IUserData" />.
+            </summary>
+            <seealso cref="T:User_API.UserData.IUserData" />
+        </member>
+        <member name="F:User_API.UserData.SqlUserData.userContext">
+            <summary>
+            The user context
+            </summary>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.#ctor(User_API.UserClasses.UserContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.UserData.SqlUserData"/> class.
+            </summary>
+            <param name="userContext">The user context.</param>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.UsersList">
+            <summary>
+            Gets the users list.
+            </summary>
+            <returns>List&lt;Users&gt;.</returns>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.ObtainUserName(System.String)">
+            <summary>
+            Obtains the name of the user.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.ObtainUserPassword(System.String)">
+            <summary>
+            Gets the user password.
+            </summary>
+            <param name="password">The password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.ObtainUserId(User_API.UserClasses.Users)">
+            <summary>
+            Obtains the user identifier.
+            </summary>
+            <param name="userId">The user identifier.</param>
+            <returns>Users.</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.UserNameAndPasswordVerification(System.String,System.String)">
+            <summary>
+            Users the name and password verification.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <param name="password">The password.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.ChangePassword(User_API.UserClasses.Users,System.String)">
+            <summary>
+            Gets the password changed.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <param name="newPassword">Creates new password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.MessagesList">
+            <summary>
+            Messageses the list.
+            </summary>
+            <returns>List&lt;Messages&gt;.</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:User_API.UserData.SqlUserData.MessageOfUser(User_API.UserClasses.Users)">
+            <summary>
+            Gets the message of user.
+            </summary>
+            <param name="userId">The user identifier.</param>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="T:User_API.UserClasses.UserContext">
+            <summary>
+            Class UserContext.
+            Implements the <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.
+            </summary>
+            <seealso cref="T:Microsoft.EntityFrameworkCore.DbContext" />
+        </member>
+        <member name="M:User_API.UserClasses.UserContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{User_API.UserClasses.UserContext})">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.UserClasses.UserContext"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="P:User_API.UserClasses.UserContext.Users">
+            <summary>
+            Gets or sets the users.
+            </summary>
+            <value>The users.</value>
+            //Creating the tables into the database (UserDb)
+        </member>
+        <member name="P:User_API.UserClasses.UserContext.Messages">
+            <summary>
+            Gets or sets the messages.
+            </summary>
+            <value>The messages.</value>
+        </member>
+        <member name="T:User_API.UserClasses.Messages">
+            <summary>
+            Class Messages.
+            </summary>
+        </member>
+        <member name="P:User_API.UserClasses.Messages.MessageId">
+            <summary>
+            Gets or sets the message identifier.
+            </summary>
+            <value>The message identifier.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Messages.Subject">
+            <summary>
+            Gets or sets the subject.
+            </summary>
+            <value>The subject.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Messages.Body">
+            <summary>
+            Gets or sets the body.
+            </summary>
+            <value>The body.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Messages.MessageDate">
+            <summary>
+            Gets or sets the message date.
+            </summary>
+            <value>The message date.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Messages.userId">
+            <summary>
+            Gets or sets the user identifier.
+            </summary>
+            <value>The user identifier.</value>
+        </member>
+        <member name="T:User_API.UserClasses.Users">
+            <summary>
+            Class Users.
+            </summary>
+        </member>
+        <member name="P:User_API.UserClasses.Users.UserId">
+            <summary>
+            Gets or sets the user identifier.
+            </summary>
+            <value>The user identifier.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Users.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Users.UserName">
+            <summary>
+            Gets or sets the name of the user.
+            </summary>
+            <value>The name of the user.</value>
+        </member>
+        <member name="P:User_API.UserClasses.Users.messageId">
+            <summary>
+            Create relationShip (oneToMany).
+            </summary>
+            <value>The message identifier.</value>
         </member>
         <member name="T:User_API.Migrations.InitialMigration">
             <summary>
@@ -243,6 +460,125 @@
             <param name="args">The arguments.</param>
             <returns>IHostBuilder.</returns>
         </member>
+        <member name="T:User_API.Services.IMessageServices">
+            <summary>
+            Interface IMessageServices
+            </summary>
+        </member>
+        <member name="M:User_API.Services.IMessageServices.ListOfMessages">
+            <summary>
+            Gets the message list.
+            </summary>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="M:User_API.Services.IMessageServices.GetMessagesOfUser(User_API.UserClasses.Users)">
+            <summary>
+            Gets the messages of user.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="T:User_API.Services.IUserServices">
+            <summary>
+            Interface IUserServices
+            </summary>
+        </member>
+        <member name="M:User_API.Services.IUserServices.ListOfUsers">
+            <summary>
+            Lists the of users.
+            </summary>
+            <returns>List&lt;Users&gt;.</returns>
+        </member>
+        <member name="M:User_API.Services.IUserServices.GetUserId(System.String,System.String)">
+            <summary>
+            Gets the user identifier.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <param name="password">The password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="M:User_API.Services.IUserServices.GetPasswordChanged(User_API.UserClasses.Users,System.String)">
+            <summary>
+            Gets the password changed.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <param name="newPassword">The new password.</param>
+            <returns>Users.</returns>
+        </member>
+        <member name="T:User_API.Services.MessageServices">
+            <summary>
+            Class MessageServices.
+            Implements the <see cref="T:User_API.Services.IMessageServices" />
+            </summary>
+            <seealso cref="T:User_API.Services.IMessageServices" />
+        </member>
+        <member name="F:User_API.Services.MessageServices.userData">
+            <summary>
+            The user data
+            </summary>
+        </member>
+        <member name="M:User_API.Services.MessageServices.#ctor(User_API.UserData.IUserData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.Services.MessageServices"/> class.
+            </summary>
+            <param name="userData">The user data.</param>
+        </member>
+        <member name="M:User_API.Services.MessageServices.ListOfMessages">
+            <summary>
+            Gets the message list.
+            </summary>
+            <returns>List&lt;Messages&gt;.</returns>
+        </member>
+        <member name="M:User_API.Services.MessageServices.GetMessagesOfUser(User_API.UserClasses.Users)">
+            <summary>
+            Gets the messages of user.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <returns>List&lt;Messages&gt;.</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:User_API.Services.UserServices">
+            <summary>
+            Class UserServices.
+            Implements the <see cref="T:User_API.Services.IUserServices" />
+            </summary>
+            <seealso cref="T:User_API.Services.IUserServices" />
+        </member>
+        <member name="F:User_API.Services.UserServices.userData">
+            <summary>
+            The user data
+            </summary>
+        </member>
+        <member name="M:User_API.Services.UserServices.#ctor(User_API.UserData.IUserData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.Services.UserServices"/> class.
+            </summary>
+            <param name="userData">The user data.</param>
+        </member>
+        <member name="M:User_API.Services.UserServices.ListOfUsers">
+            <summary>
+            Lists the of users.
+            </summary>
+            <returns>List&lt;Users&gt;.</returns>
+        </member>
+        <member name="M:User_API.Services.UserServices.GetUserId(System.String,System.String)">
+            <summary>
+            Gets the user identifier.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <param name="password">The password.</param>
+            <returns>Users.</returns>
+            <exception cref="T:System.NotImplementedException">User is not found</exception>
+        </member>
+        <member name="M:User_API.Services.UserServices.GetPasswordChanged(User_API.UserClasses.Users,System.String)">
+            <summary>
+            Gets the password changed.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <param name="newPassword">The new password.</param>
+            <returns>Users.</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="T:User_API.Startup">
             <summary>
             Class Startup.
@@ -274,248 +610,6 @@
             <param name="app">The application.</param>
             <param name="env">The env.</param>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        </member>
-        <member name="T:User_API.UserClasses.Messages">
-            <summary>
-            Class Messages.
-            </summary>
-        </member>
-        <member name="P:User_API.UserClasses.Messages.MessageId">
-            <summary>
-            Gets or sets the message identifier.
-            </summary>
-            <value>The message identifier.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Messages.Subject">
-            <summary>
-            Gets or sets the subject.
-            </summary>
-            <value>The subject.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Messages.Body">
-            <summary>
-            Gets or sets the body.
-            </summary>
-            <value>The body.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Messages.MessageDate">
-            <summary>
-            Gets or sets the message date.
-            </summary>
-            <value>The message date.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Messages.userId">
-            <summary>
-            Gets or sets the user identifier.
-            </summary>
-            <value>The user identifier.</value>
-        </member>
-        <member name="T:User_API.UserClasses.UserContext">
-            <summary>
-            Class UserContext.
-            Implements the <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.
-            </summary>
-            <seealso cref="T:Microsoft.EntityFrameworkCore.DbContext" />
-        </member>
-        <member name="M:User_API.UserClasses.UserContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{User_API.UserClasses.UserContext})">
-            <summary>
-            Initializes a new instance of the <see cref="T:User_API.UserClasses.UserContext"/> class.
-            </summary>
-            <param name="options">The options.</param>
-        </member>
-        <member name="P:User_API.UserClasses.UserContext.Users">
-            <summary>
-            Gets or sets the users.
-            </summary>
-            <value>The users.</value>
-            //Creating the tables into the database (UserDb)
-        </member>
-        <member name="P:User_API.UserClasses.UserContext.Messages">
-            <summary>
-            Gets or sets the messages.
-            </summary>
-            <value>The messages.</value>
-        </member>
-        <member name="T:User_API.UserClasses.Users">
-            <summary>
-            Class Users.
-            </summary>
-        </member>
-        <member name="P:User_API.UserClasses.Users.UserId">
-            <summary>
-            Gets or sets the user identifier.
-            </summary>
-            <value>The user identifier.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Users.Password">
-            <summary>
-            Gets or sets the password.
-            </summary>
-            <value>The password.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Users.UserName">
-            <summary>
-            Gets or sets the name of the user.
-            </summary>
-            <value>The name of the user.</value>
-        </member>
-        <member name="P:User_API.UserClasses.Users.messageId">
-            <summary>
-            Create relationShip (oneToMany).
-            </summary>
-            <value>The message identifier.</value>
-        </member>
-        <member name="T:User_API.UserData.IUserData">
-            <summary>
-            Interface IUserData.
-            </summary>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetUsersList">
-            <summary>
-            Gets the users list.
-            </summary>
-            <returns>List&lt;Users&gt;.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetInfoUser(System.String)">
-            <summary>
-            Gets the information user.
-            </summary>
-            <param name="name">The name.</param>
-            <returns>List&lt;Users&gt;.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetId(System.Guid)">
-            <summary>
-            Gets the identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetUserPassword(System.String)">
-            <summary>
-            Gets the user password.
-            </summary>
-            <param name="password">The password.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetUserName(System.String)">
-            <summary>
-            Gets the name of the user.
-            </summary>
-            <param name="name">The name.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetUserId(System.String,System.String)">
-            <summary>
-            Gets the user identifier.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <param name="password">The password.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetPasswordChanged(System.String,System.String,System.String)">
-            <summary>Gets the password changed.</summary>
-            <param name="userName"></param>
-            <param name="password"></param>
-            <param name="newPassword">Creates new password.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetMessageList">
-            <summary>
-            Gets the message list.
-            </summary>
-            <returns>List&lt;Messages&gt;.</returns>
-        </member>
-        <member name="M:User_API.UserData.IUserData.GetMessageOfUser(System.String)">
-            <summary>
-            Gets the message of user.
-            </summary>
-            <param name="messageId">The message identifier.</param>
-            <returns>List&lt;Messages&gt;.</returns>
-        </member>
-        <member name="T:User_API.UserData.SqlUserData">
-            <summary>
-            Class SqlUserData.
-            Implements the <see cref="T:User_API.UserData.IUserData" />.
-            </summary>
-            <seealso cref="T:User_API.UserData.IUserData" />
-        </member>
-        <member name="F:User_API.UserData.SqlUserData.userContext">
-            <summary>
-            The user context.
-            </summary>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.#ctor(User_API.UserClasses.UserContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:User_API.UserData.SqlUserData"/> class.
-            </summary>
-            <param name="userContext">The user context.</param>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetUsersList">
-            <summary>
-            Gets the users list.
-            </summary>
-            <returns>List&lt;Users&gt;.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetInfoUser(System.String)">
-            <summary>
-            Gets the information user.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <returns>List User details;.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetUserPassword(System.String)">
-            <summary>
-            Gets the user password.
-            </summary>
-            <param name="UPassword">The u password.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetUserName(System.String)">
-            <summary>
-            Gets the name of the user.
-            </summary>
-            <param name="UName">Name of the u.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetId(System.Guid)">
-            <summary>
-            Gets the identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns>Users.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetUserId(System.String,System.String)">
-            <summary>
-            Gets the user identifier.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <param name="password">The password.</param>
-            <returns>Users.</returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetPasswordChanged(System.String,System.String,System.String)">
-            <summary>
-            Gets the password changed.
-            </summary>
-            <param name="userName">Name of the user.</param>
-            <param name="password">The password.</param>
-            <param name="newPassword">Creates new password.</param>
-            <returns>Users.</returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetMessageList">
-            <summary>
-            Gets the message list.
-            </summary>
-            <returns>List&lt;Messages&gt;.</returns>
-        </member>
-        <member name="M:User_API.UserData.SqlUserData.GetMessageOfUser(System.String)">
-            <summary>
-            Gets the message of user.
-            </summary>
-            <param name="messageId">The message identifier.</param>
-            <returns>List&lt;Messages&gt;.</returns>
         </member>
     </members>
 </doc>

@@ -4,10 +4,10 @@
 // Created          : 02-11-2021
 //
 // Last Modified By : senti
-// Last Modified On : 02-11-2021
+// Last Modified On : 03-03-2021
 // ***********************************************************************
 // <copyright file="Startup.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+//     Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using User_API.Services;
 using User_API.UserClasses;
 using User_API.UserData;
 
@@ -52,15 +53,16 @@ namespace User_API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-
             // Setting Connexion String
             services.AddDbContextPool<UserContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("UserContextConnectionString")));
 
 
             services.AddScoped<IUserData, SqlUserData>();
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IMessageServices, MessageServices>();
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserAPI", Version = "v1" });
