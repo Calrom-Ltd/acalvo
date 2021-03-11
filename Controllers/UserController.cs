@@ -60,7 +60,7 @@ namespace User_API.Controllers
         {
             return this.Ok(this.userServices.ListOfUsers());
         }
-    
+
         /// <summary>
         /// Logs the in.
         /// </summary>

@@ -4,10 +4,93 @@
         <name>User_API</name>
     </assembly>
     <members>
+        <member name="T:User_API.Controllers.MessageController">
+            <summary>
+            Class MessageController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="F:User_API.Controllers.MessageController.messageServices">
+            <summary>
+            The message services
+            </summary>
+        </member>
+        <member name="M:User_API.Controllers.MessageController.#ctor(User_API.Services.IMessageServices)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.Controllers.MessageController"/> class.
+            </summary>
+            <param name="messageServices">The message services.</param>
+        </member>
         <member name="M:User_API.Controllers.MessageController.DisplayAllMessages">
             <summary>
             Displays all messages.
             </summary>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="T:User_API.Controllers.MongoController">
+            <summary>
+            Class MongoController.
+            Implements the <see cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="F:User_API.Controllers.MongoController.userCollection">
+            <summary>
+            The user collection
+            </summary>
+        </member>
+        <member name="F:User_API.Controllers.MongoController.messagesCollection">
+            <summary>
+            The messages collection
+            </summary>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.#ctor(User_API.ServicesMongo.IUserCollection,User_API.ServicesMongo.IMessagesCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.Controllers.MongoController"/> class.
+            </summary>
+            <param name="userCollection">The user collection.</param>
+            <param name="messagesCollection">The messages collection.</param>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.GetListOfUsers">
+            <summary>
+            Gets the list of users.
+            </summary>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.GetListOfMessages">
+            <summary>
+            Gets the list of messages.
+            </summary>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.InsertMessage(User_API.Model.MessagesMongo)">
+            <summary>
+            Creates the message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.CreateUser(User_API.Model.UsersMongo)">
+            <summary>
+            Creates the user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.UpdateUser(User_API.Model.UsersMongo,System.String)">
+            <summary>
+            Updates the user.
+            </summary>
+            <param name="user">The user.</param>
+            <param name="id">The identifier.</param>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:User_API.Controllers.MongoController.DeleteUser(System.String)">
+            <summary>
+            Deletes the user.
+            </summary>
+            <param name="id">The identifier.</param>
             <returns>IActionResult.</returns>
         </member>
         <member name="T:User_API.Controllers.UserController">
@@ -285,6 +368,78 @@
             </summary>
             <value>The message identifier.</value>
         </member>
+        <member name="T:User_API.Database.IUserMongoSettings">
+            <summary>
+            Interface IUserMongoSettings
+            </summary>
+        </member>
+        <member name="P:User_API.Database.IUserMongoSettings.UserCollectionName">
+            <summary>
+            Gets or sets the name of the user collection.
+            </summary>
+            <value>The name of the user collection.</value>
+        </member>
+        <member name="P:User_API.Database.IUserMongoSettings.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:User_API.Database.IUserMongoSettings.UserDatabaseName">
+            <summary>
+            Gets or sets the name of the user database.
+            </summary>
+            <value>The name of the user database.</value>
+        </member>
+        <member name="P:User_API.Database.IUserMongoSettings.MessageCollectionName">
+            <summary>
+            Gets or sets the name of the message collection.
+            </summary>
+            <value>The name of the message collection.</value>
+        </member>
+        <member name="P:User_API.Database.IUserMongoSettings.MessageDatabaseName">
+            <summary>
+            Gets or sets the name of the message database.
+            </summary>
+            <value>The name of the message database.</value>
+        </member>
+        <member name="T:User_API.Database.UserMongoSettings">
+            <summary>
+            Class UserMongoSettings.
+            Implements the <see cref="T:User_API.Database.IUserMongoSettings" />
+            </summary>
+            <seealso cref="T:User_API.Database.IUserMongoSettings" />
+        </member>
+        <member name="P:User_API.Database.UserMongoSettings.UserCollectionName">
+            <summary>
+            Gets or sets the name of the user collection.
+            </summary>
+            <value>The name of the user collection.</value>
+        </member>
+        <member name="P:User_API.Database.UserMongoSettings.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:User_API.Database.UserMongoSettings.UserDatabaseName">
+            <summary>
+            Gets or sets the name of the user database.
+            </summary>
+            <value>The name of the user database.</value>
+        </member>
+        <member name="P:User_API.Database.UserMongoSettings.MessageCollectionName">
+            <summary>
+            Gets or sets the name of the message collection.
+            </summary>
+            <value>The name of the message collection.</value>
+        </member>
+        <member name="P:User_API.Database.UserMongoSettings.MessageDatabaseName">
+            <summary>
+            Gets or sets the name of the message database.
+            </summary>
+            <value>The name of the message database.</value>
+        </member>
         <member name="T:User_API.Migrations.InitialMigration">
             <summary>
             Class InitialMigration.
@@ -442,6 +597,70 @@
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
+        <member name="T:User_API.Model.MessagesMongo">
+            <summary>
+            Class MessagesMongo.
+            </summary>
+        </member>
+        <member name="P:User_API.Model.MessagesMongo.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:User_API.Model.MessagesMongo.Subject">
+            <summary>
+            Gets or sets the subject.
+            </summary>
+            <value>The subject.</value>
+        </member>
+        <member name="P:User_API.Model.MessagesMongo.Body">
+            <summary>
+            Gets or sets the body.
+            </summary>
+            <value>The body.</value>
+        </member>
+        <member name="P:User_API.Model.MessagesMongo.MessageDate">
+            <summary>
+            Gets or sets the message date.
+            </summary>
+            <value>The message date.</value>
+        </member>
+        <member name="P:User_API.Model.MessagesMongo.UserId">
+            <summary>
+            Gets or sets the user identifier.
+            </summary>
+            <value>The user identifier.</value>
+        </member>
+        <member name="T:User_API.Model.UsersMongo">
+            <summary>
+            Class UsersMongo.
+            </summary>
+        </member>
+        <member name="P:User_API.Model.UsersMongo.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:User_API.Model.UsersMongo.UserId">
+            <summary>
+            Gets or sets the user identifier.
+            </summary>
+            <value>The user identifier.</value>
+        </member>
+        <member name="P:User_API.Model.UsersMongo.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:User_API.Model.UsersMongo.UserName">
+            <summary>
+            Gets or sets the name of the user.
+            </summary>
+            <value>The name of the user.</value>
+        </member>
         <member name="T:User_API.Program">
             <summary>
             Class Program.
@@ -459,6 +678,185 @@
             </summary>
             <param name="args">The arguments.</param>
             <returns>IHostBuilder.</returns>
+        </member>
+        <member name="T:User_API.ServicesMongo.IMessagesCollection">
+            <summary>
+            Interface IMessagesCollection
+            </summary>
+        </member>
+        <member name="M:User_API.ServicesMongo.IMessagesCollection.InsertMessage(User_API.Model.MessagesMongo)">
+            <summary>
+            Inserts the message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IMessagesCollection.UpdateMessage(User_API.Model.MessagesMongo)">
+            <summary>
+            Updates the message.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IMessagesCollection.GetAllMessages">
+            <summary>
+            Gets all messages.
+            </summary>
+            <returns>Task&lt;List&lt;MessagesMongo&gt;&gt;.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IMessagesCollection.GetUserById(System.String)">
+            <summary>
+            Gets the user by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Task&lt;MessagesMongo&gt;.</returns>
+        </member>
+        <member name="T:User_API.ServicesMongo.IUserCollection">
+            <summary>
+            Interface IUserCollection
+            </summary>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.InsertUser(User_API.Model.UsersMongo)">
+            <summary>
+            Inserts the user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.UpdateUser(User_API.Model.UsersMongo)">
+            <summary>
+            Updates the user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.DeleteUser(System.String)">
+            <summary>
+            Deletes the user.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.GetAllUsers">
+            <summary>
+            Gets all users.
+            </summary>
+            <returns>Task&lt;List&lt;UsersMongo&gt;&gt;.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.GetUserById(System.String)">
+            <summary>
+            Gets the user by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Task&lt;UsersMongo&gt;.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.IUserCollection.LogIn(System.String,System.String)">
+            <summary>
+            Logs the in.
+            </summary>
+            <param name="password">The password.</param>
+            <param name="userName">Name of the user.</param>
+            <returns>Task&lt;UsersMongo&gt;.</returns>
+        </member>
+        <member name="T:User_API.ServicesMongo.MessageCollection">
+            <summary>
+            Class MessageCollection.
+            </summary>
+        </member>
+        <member name="F:User_API.ServicesMongo.MessageCollection.messageCollection">
+            <summary>
+            The message collection
+            </summary>
+        </member>
+        <member name="M:User_API.ServicesMongo.MessageCollection.#ctor(User_API.Database.IUserMongoSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.ServicesMongo.MessageCollection"/> class.
+            </summary>
+            <param name="setting">The setting.</param>
+        </member>
+        <member name="M:User_API.ServicesMongo.MessageCollection.GetAllMessages">
+            <summary>
+            Gets all messages.
+            </summary>
+            <returns>List&lt;MessagesMongo&gt;.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.MessageCollection.GetUserById(System.String)">
+            <summary>
+            Gets the user by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>MessagesMongo.</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:User_API.ServicesMongo.MessageCollection.InsertMessage(User_API.Model.MessagesMongo)">
+            <summary>
+            Inserts the message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:User_API.ServicesMongo.MessageCollection.UpdateMessage(User_API.Model.MessagesMongo)">
+            <summary>
+            Updates the message.
+            </summary>
+            <param name="user">The user.</param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:User_API.ServicesMongo.UserCollection">
+            <summary>
+            Class UserCollection.
+            </summary>
+        </member>
+        <member name="F:User_API.ServicesMongo.UserCollection.userCollection">
+            <summary>
+            The user collection
+            </summary>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.#ctor(User_API.Database.IUserMongoSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:User_API.ServicesMongo.UserCollection" /> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.DeleteUser(System.String)">
+            <summary>
+            Deletes the user.
+            </summary>
+            <param name="Id">The identifier.</param>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.GetAllUsers">
+            <summary>
+            Gets all users.
+            </summary>
+            <returns>List&lt;UsersMongo&gt;.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.GetUserById(System.String)">
+            <summary>
+            Gets the user by identifier.
+            </summary>
+            <param name="Id">The identifier.</param>
+            <returns>UsersMongo.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.InsertUser(User_API.Model.UsersMongo)">
+            <summary>
+            Inserts the user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.UpdateUser(User_API.Model.UsersMongo)">
+            <summary>
+            Updates the user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:User_API.ServicesMongo.UserCollection.LogIn(System.String,System.String)">
+            <summary>
+            Logs the in.
+            </summary>
+            <param name="password">The password.</param>
+            <param name="userName">Name of the user.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
         <member name="T:User_API.Services.IMessageServices">
             <summary>

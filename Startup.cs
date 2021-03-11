@@ -17,8 +17,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using User_API.Database;
 using User_API.Services;
+using User_API.ServicesMongo;
 using User_API.UserClasses;
 using User_API.UserData;
 
@@ -52,6 +55,16 @@ namespace User_API
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Mongo Connection
+            services.Configure<UserMongoSettings>(
+                Configuration.GetSection(nameof(UserMongoSettings)));
+
+            services.AddScoped<IUserMongoSettings>(sp =>
+                        sp.GetRequiredService<IOptions<UserMongoSettings>>().Value);
+
+            services.AddScoped<IUserCollection, UserCollection>();
+            services.AddScoped<IMessagesCollection, MessageCollection>();
 
             // Setting Connexion String
             services.AddDbContextPool<UserContext>
